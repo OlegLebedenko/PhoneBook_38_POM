@@ -2,13 +2,11 @@ package screens;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
-import models.Contact;
 import org.openqa.selenium.support.FindBy;
 
-public class AddNewContactScreen extends BaseScreen{
+public class EditContactScreen extends BaseScreen{
 
-    public AddNewContactScreen(AppiumDriver<MobileElement> driver) {
-
+    public EditContactScreen(AppiumDriver<MobileElement> driver) {
         super(driver);
     }
 
@@ -30,21 +28,16 @@ public class AddNewContactScreen extends BaseScreen{
     @FindBy(xpath = "//*[@resource-id='com.sheygam.contactapp:id/inputDesc']")
     MobileElement inputDesc;
 
-    @FindBy(xpath = "//*[@resource-id='com.sheygam.contactapp:id/createBtn']")
-    MobileElement createBtn;
+    @FindBy(xpath = "//*[@resource-id='com.sheygam.contactapp:id/updateBtn']")
+    MobileElement updateBtn;
 
-    public AddNewContactScreen fillContactForm(Contact contact){
-        waitElement(createBtn, 5);
-        type(inputName, contact.getName());
-        type(inputLastName, contact.getLastName());
-        type(inputEmail, contact.getEmail());
-        type(inputPhone, contact.getPhone());
-        type(inputAddress, contact.getAddress());
-        type(inputDesc, contact.getDescription());
-        return this;
-    }
-    public ContactListScreen submitContact(){
-        createBtn.click();
+    public ContactListScreen submitEditContact(){
+        updateBtn.click();
         return new ContactListScreen(driver);
+    }
+    public EditContactScreen editEmail(String text){
+        waitElement(updateBtn, 5);
+        type(inputEmail, text);
+        return this;
     }
 }
